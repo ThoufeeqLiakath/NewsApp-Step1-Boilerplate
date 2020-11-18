@@ -1,0 +1,64 @@
+﻿@model News_WebApp.Models.News
+
+@{
+    ViewData["Title"] = "Index";
+    var publishedAt = "";
+    var newsId = "";
+    if(Model.PublishedAt!=DateTime.MinValue)
+    {
+        publishedAt = Model.PublishedAt.ToString();
+    }
+    if(Model.NewsId!=0)
+    {
+        newsId = Model.NewsId.ToString();
+    }
+}
+
+<h1>Create new News content</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">*@
+                    @*<label asp-for="@Model.NewsId" class="control-label"></label>
+                    <input asp-for="@newsId" class="form-control" />
+                    <span asp-validation-for="@Model.NewsId" class="text-danger"></span>*@
+              @* </div> *@  
+            <div class="form-group">
+                <label asp-for="@Model.Title" class="control-label"></label>
+                <input asp-for="@Model.Title" class="form-control" />
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Content" class="control-label"></label>
+                <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.PublishedAt" class="control-label"></label>
+                <input asp-for="@publishedAt" class="form-control" />
+                <span asp-validation-for="@Model.PublishedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Select an image to upload</label>
+                <input asp-for="@Model.UrlToImage" type="file" class="form-control" /> @*type="file" onchange="onChangeFileUpload(event)"*@
+                <span asp-validation-for="@Model.UrlToImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@*@if (Model != null && Model.Count() > 0)
+{*@
+<div>
+    <partial name="_AllNews" model=Model.AllNews />
+</div>
+@*}*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
